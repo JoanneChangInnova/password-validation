@@ -6,11 +6,10 @@ The factory pattern is used for creating new objects. We can use this to determi
 `ValidationService` incorporates two patterns: fetches the appropriate validator by passing the Input type and executes the validate() method that applies to the selected strategy.
 
 
-### How to use in Maven
+### How to access
 
-download repository zip and build:
+Download repository zip > Extract zip > Open IntelliJ > On the menu bar, File > Open > Navigate to the directory where pom.xml is.
 
-    mvn install 
 run test:    
 
     mvn test 
