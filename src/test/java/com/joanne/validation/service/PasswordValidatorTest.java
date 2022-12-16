@@ -9,11 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Set;
 
-import static org.junit.Assert.*;
 /**
  * PasswordValidator Tester.
  */
-@RunWith( SpringRunner.class )
+@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PasswordValidator.class, ValidationRules.class})
 public class PasswordValidatorTest {
 
@@ -22,12 +21,20 @@ public class PasswordValidatorTest {
 
     @Test
     public void testApplyValidationRules() {
-        String inValidpassword = "AA";
-        Set<String> testCase1 = passwordValidator.applyValidationRules(inValidpassword);
-        Assert.assertTrue(testCase1.size()==3);
         String validPassword = "123456a";
-        Set<String> testCase2 = passwordValidator.applyValidationRules(validPassword);
-        Assert.assertFalse(testCase2.size()==3);
-        //Assert.assertEquals();
+        Set<String> testCase1 = passwordValidator.applyValidationRules(validPassword);
+        Assert.assertTrue(testCase1.size() == 0);
+
+        String violateTwoRules = "A1b#";
+        Set<String> testCase2 = passwordValidator.applyValidationRules(violateTwoRules);
+        Assert.assertTrue(testCase2.size() == 2);
+        Assert.assertEquals(testCase2, Set.of(passwordValidator.PASSWORD_FAILED_LETTER_NUMBER,
+                passwordValidator.PASSWORD_FAILED_LENGTH));
+
+        String inValidpassword = "AAA1";
+        Set<String> testCase3 = passwordValidator.applyValidationRules(inValidpassword);
+        Assert.assertEquals(testCase3, Set.of(passwordValidator.PASSWORD_FAILED_LETTER_NUMBER,
+                passwordValidator.PASSWORD_FAILED_LENGTH, passwordValidator.PASSWORD_FAILED_SEQUENCE));
+
     }
 }

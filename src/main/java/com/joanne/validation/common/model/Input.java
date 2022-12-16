@@ -3,9 +3,7 @@ package com.joanne.validation.common.model;
 import com.joanne.validation.common.enums.InputType;
 
 /**
- *
  * A class encapsulates the data required for validation
- *
  */
 public class Input {
 
